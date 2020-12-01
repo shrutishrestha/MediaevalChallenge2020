@@ -30,16 +30,6 @@ from monai.transforms import (
 )
 from myutils import create_file
 
-
-def get_imagenet_mean_std():
-    matrix = np.ones((256, 256))
-    R_mean, G_mean, B_mean = 0.485 * matrix, 0.456 * matrix, 0.406 * matrix  # [0.485, 0.456, 0.406]
-    R_std, G_std, B_std = 0.229 * matrix, 0.224 * matrix, 0.225 * matrix  # [0.229, 0.224, 0.225]
-    mean = np.array([R_mean, G_mean, B_mean])
-    std = np.array([R_std, G_std, B_std])
-    return mean, std
-
-
 def get_argsparser():
     parser = argparse.ArgumentParser("run a model for Kvasir-SEG")
     parser.add_argument("--data_root_dir", type=str, default="/kvasir-seg", help="uo")
@@ -52,6 +42,15 @@ def get_argsparser():
     parser.add_argument("--gpu_id", type=str, default='0,1,2', help='GPU ID')
     parser.add_argument("--encoder_weights", type=str, default='imagenet', help='GPU ID')
     return parser
+
+
+def get_imagenet_mean_std():
+    matrix = np.ones((256, 256))
+    R_mean, G_mean, B_mean = 0.485 * matrix, 0.456 * matrix, 0.406 * matrix  # [0.485, 0.456, 0.406]
+    R_std, G_std, B_std = 0.229 * matrix, 0.224 * matrix, 0.225 * matrix  # [0.229, 0.224, 0.225]
+    mean = np.array([R_mean, G_mean, B_mean])
+    std = np.array([R_std, G_std, B_std])
+    return mean, std
 
 
 def get_training_dataset(train_images, train_segs):
